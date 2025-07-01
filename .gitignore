@@ -120,6 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+cyber-chatbot
 .env
 .venv
 env/
@@ -184,7 +185,7 @@ $RECYCLE.BIN/
 *~
 
 # FAISS Index Files
-faiss_index_cyber/
+Cyber-Security-Chatbot/faiss_index_cyber
 *.faiss
 *.pkl
 
