@@ -11,7 +11,7 @@ MODE = "streamlit"  # Change to "cli" if needed
 if MODE == "streamlit":
     run_streamlit_app()
 else:
-    file_path = "Cyber Threat Sample1.pdf"
+    file_path = "financial_services_cyber_threats_dataset.pdf"
     docs = load_documents(file_path)
     chunks = split_documents(docs)
     vectorstore = create_faiss_vectorstore(chunks)

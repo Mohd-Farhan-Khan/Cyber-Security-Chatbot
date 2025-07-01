@@ -6,11 +6,29 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 
 - **PDF Document Processing**: Automatically loads and processes cybersecurity threat documents
 - **Intelligent Question Answering**: Uses RAG to provide contextual answers based on the document content
-- **Multiple Interfaces**: 
-  - Streamlit web interface for interactive use
-  - Command-line interface for programmatic access
+- **Enhanced User Interfaces**: 
+  - **Streamlit Web Interface**: Modern chat-like UI with conversation history, real-time status, and interactive features
+  - **Professional CLI Interface**: Rich terminal experience with animations, formatted output, and command support
 - **Vector Search**: FAISS-powered similarity search for relevant document chunks
-- **Source Citations**: Provides source references for transparency
+- **Source Citations**: Comprehensive source references with expandable content preview
+- **Real-time Processing Feedback**: Live progress updates during document processing
+- **Conversation Management**: Persistent chat history, conversation statistics, and session tracking
+
+## User Experience Enhancements
+
+### Streamlit Web Interface
+- 🎨 **Modern Design**: Clean, professional UI with gradient headers and responsive layout
+- 💬 **Chat Interface**: Real-time messaging with conversation history and typing indicators
+- � **Chat Interface**: Real-time messaging with conversation history and typing indicators
+- 🔧 **Interactive Controls**: Quick action buttons, sample questions, and conversation management
+- 📚 **Source Explorer**: Expandable source references with full content preview
+
+### CLI Interface
+- 🎯 **Professional Banner**: ASCII art branding with system information
+- ⚡ **Rich Animations**: Thinking indicators and progress feedback
+- 📋 **Structured Output**: Formatted responses with numbered sources and timestamps
+- 🛠️ **Command System**: Built-in help, screen clearing, and session management
+- 📈 **Session Tracking**: Conversation counters and real-time statistics
 
 ## Technology Stack
 
@@ -72,10 +90,15 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 2. **Access the interface**:
    Open your browser and navigate to `http://localhost:8501`
 
-3. **Ask questions**:
-   Type your cybersecurity-related questions in the input field and get AI-powered answers with source citations.
+3. **Interactive Chatbot Features**:
+   - **Real-time conversation**: Chat-like interface with message history
+   - **System status**: Live monitoring of document processing and AI system status
+   - **Quick actions**: Sample questions and conversation clearing
+   - **Source attribution**: Expandable source references for transparency
+   - **Progress tracking**: Visual feedback during document processing
+   - **Responsive design**: Clean, modern UI with professional styling
 
-### Command Line Interface
+### Enhanced Command Line Interface
 
 1. **Modify the mode in `main.py`**:
    ```python
@@ -87,7 +110,14 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
    python main.py
    ```
 
-3. **Interact with the chatbot**:
+3. **Enhanced CLI Features**:
+   - **Professional banner**: ASCII art welcome screen with system branding
+   - **Interactive help**: Built-in help system with sample questions
+   - **Thinking animation**: Visual feedback while processing queries
+   - **Formatted responses**: Clean, structured output with source attribution
+   - **Session management**: Conversation tracking and timestamps
+   - **Command support**: Help, clear screen, and exit commands
+   - **Error handling**: Graceful error messages and recovery
    Type your questions and receive answers. Type "exit" to quit.
 
 ## Project Structure
@@ -97,7 +127,7 @@ llm_project/
 ├── main.py                 # Entry point - switches between UI modes
 ├── config.py              # Configuration and environment setup
 ├── pdf_loader.py          # PDF document loading functionality
-├── text_splitter.py       # Document chunking and token counting
+├── text_splitter.py       # Document chunking
 ├── embeddings.py          # Vector embeddings and FAISS operations
 ├── rag_pipeline.py        # RAG chain setup with Gemini LLM
 ├── interface_streamlit.py # Streamlit web interface
@@ -177,11 +207,21 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Meta AI** for FAISS vector search
 - **Streamlit** for the web interface
 
+## Recently Implemented
+
+- ✅ **Enhanced Chat Interface**: Real-time conversation with message history
+- ✅ **System Status Dashboard**: Live monitoring and document information
+- ✅ **Professional CLI Experience**: Rich terminal interface with animations
+- ✅ **Interactive Quick Actions**: Sample questions and conversation management
+- ✅ **Source Attribution System**: Expandable references with content preview
+- ✅ **Session Management**: Conversation tracking and statistics
+
 ## Future Enhancements
 
 - [ ] Support for multiple document formats (Word, PowerPoint, etc.)
 - [ ] Document upload functionality in Streamlit interface
-- [ ] Conversation history and context retention
 - [ ] Advanced filtering and search capabilities
 - [ ] Export functionality for Q&A sessions
 - [ ] Integration with more LLM providers
+- [ ] Multi-language support
+- [ ] Custom theme options

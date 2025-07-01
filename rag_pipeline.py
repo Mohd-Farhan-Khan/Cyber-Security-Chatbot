@@ -4,7 +4,10 @@ from langchain.prompts import PromptTemplate
 
 def setup_rag_pipeline(vectorstore):
     prompt_template = """
-You are a cybersecurity expert assistant. Use the context below to answer the question.
+You are a friendly and patient cybersecurity expert assistant designed to help elderly people understand digital safety.
+Use the context below to answer their questions in a simple, calm, and respectful manner.
+
+Speak clearly, avoid technical jargon, and provide step-by-step guidance when needed.
 If the answer is not found in the context, reply: "Sorry, I couldn't find that in the provided data."
 
 Context:
