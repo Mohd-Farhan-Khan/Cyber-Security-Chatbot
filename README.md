@@ -39,58 +39,87 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 - **UI**: Streamlit
 - **Document Processing**: PyPDF
 
+## 🚨 Important Security Notice
+The repository contains an exposed API key that is NOT yours. You MUST replace it with your own key before running the application.
+
 ## Prerequisites
 
 - Python 3.8+
-- Google API Key for Gemini access
+- Google AI Studio API Key (for Gemini)
 
-## Installation
+## 🔧 Step-by-Step Setup
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd llm_project
+### 1. Get Your Google API Key
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy the generated API key
+
+### 2. Configure Your Environment
+1. Open the `.env` file in the project root
+2. Replace the existing API key with your actual API key:
+   ```
+   GOOGLE_API_KEY=your_actual_api_key_here
    ```
 
-2. **Create a virtual environment**:
-   ```bash
-   python -m venv llm_env
-   ```
+### 3. Set Up Python Environment
+Open PowerShell/Command Prompt and run:
 
-3. **Activate the virtual environment**:
-   - Windows:
-     ```bash
-     llm_env\Scripts\activate
-     ```
-   - macOS/Linux:
-     ```bash
-     source llm_env/bin/activate
-     ```
+```powershell
+# Navigate to the project directory
+cd "c:\Users\golde\Desktop\Cyber Chatbot (Janhavi)\Cyber-Security-Chatbot"
 
-4. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+# Create virtual environment (if not already existing)
+python -m venv cyber-chatbot
 
-5. **Set up environment variables**:
-   Create a `.env` file in the project root and add your Google API key:
-   ```
-   GOOGLE_API_KEY=your_google_api_key_here
-   ```
+# Activate virtual environment
+.\cyber-chatbot\Scripts\Activate.ps1
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 4. Initialize Vector Database
+Run the setup script to create a fresh vector database with your API key:
+
+```powershell
+python scripts/setup_database.py
+```
+
+This will:
+- ✅ Verify your API key is configured
+- 🗑️ Remove the old vector database
+- 📄 Load all PDF documents
+- ✂️ Split documents into chunks
+- 🧠 Create new embeddings with your API key
+- 💾 Save the new vector database
 
 ## Usage
 
-### Streamlit Web Interface (Recommended)
+### 5. Run the Chatbot
 
-1. **Run the Streamlit app**:
-   ```bash
-   streamlit run main.py
-   ```
+#### Option A: Web Interface (Recommended)
+```powershell
+streamlit run main.py
+```
+Then open your browser to: http://localhost:8501
 
-2. **Access the interface**:
+#### Option B: Command Line Interface
+Edit `main.py` and change:
+```python
+MODE = "cli"  # Change from "streamlit" to "cli"
+```
+Then run:
+```powershell
+python main.py
+```
+
+### Streamlit Web Interface Features
+
+1. **Access the interface**:
    Open your browser and navigate to `http://localhost:8501`
 
-3. **Interactive Chatbot Features**:
+2. **Interactive Chatbot Features**:
    - **Real-time conversation**: Chat-like interface with message history
    - **System status**: Live monitoring of document processing and AI system status
    - **Quick actions**: Sample questions and conversation clearing
@@ -123,40 +152,60 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 ## Project Structure
 
 ```
-llm_project/
-├── main.py                 # Entry point - switches between UI modes
-├── config.py              # Configuration and environment setup
-├── pdf_loader.py          # PDF document loading functionality
-├── text_splitter.py       # Document chunking
-├── embeddings.py          # Vector embeddings and FAISS operations
-├── rag_pipeline.py        # RAG chain setup with Gemini LLM
-├── interface_streamlit.py # Streamlit web interface
-├── interface_cli.py       # Command-line interface
-├── requirements.txt       # Python dependencies
-├── .env                   # Environment variables (create this)
-├── faiss_index_cyber/     # FAISS vector store (auto-generated)
-├── llm_env/              # Virtual environment (auto-generated)
-└── *.pdf                 # Sample cybersecurity documents
+Cyber-Security-Chatbot/
+├── main.py                      # Entry point - switches between UI modes
+├── requirements.txt             # Python dependencies
+├── .env                         # Environment variables
+├── .gitignore                   # Git ignore file
+├── README.md                    # Project documentation
+├── src/                         # Source code package
+│   ├── __init__.py             # Package initialization
+│   ├── config.py               # Configuration and environment setup
+│   ├── pdf_loader.py           # PDF document loading functionality
+│   ├── text_splitter.py        # Document chunking
+│   ├── embeddings.py           # Vector embeddings and FAISS operations
+│   ├── rag_pipeline.py         # RAG chain setup with Gemini LLM
+│   └── interfaces/             # User interface modules
+│       ├── __init__.py         # Interface package initialization
+│       ├── streamlit_app.py    # Streamlit web interface
+│       └── cli_app.py          # Command-line interface
+├── scripts/                     # Utility scripts
+│   ├── __init__.py             # Scripts package initialization
+│   └── setup_database.py       # Database setup and initialization script
+├── data/                        # PDF documents directory
+│   ├── financial_services_cyber_threats_dataset.pdf
+│   ├── Cyber Threat Sample.pdf
+│   └── Cyber Threat Sample1.pdf
+├── faiss_index_cyber/          # FAISS vector store (auto-generated)
+│   ├── index.faiss             # FAISS index file
+│   └── index.pkl               # Serialized index metadata
+├── cyber-chatbot/              # Virtual environment (auto-generated)
+│   ├── pyvenv.cfg              # Virtual environment configuration
+│   ├── Scripts/                # Virtual environment executables
+│   ├── Lib/                    # Virtual environment libraries
+│   └── Include/                # Virtual environment headers
+└── __pycache__/                # Python cache files (auto-generated)
 ```
 
 ## Configuration
 
 ### Changing the PDF Source
 
-To use different PDF documents, modify the `file_path` variable in:
-- `interface_streamlit.py` (line 11)
+To use different PDF documents, modify the file paths in:
 - `main.py` (line 14 for CLI mode)
+- `src/interfaces/streamlit_app.py` (for Streamlit interface)
+- `scripts/setup_database.py` (for database setup)
 
 ### Adjusting Model Parameters
 
-You can modify the following in `rag_pipeline.py`:
+You can modify the following in `src/rag_pipeline.py`:
 - **Model**: Change `model="gemini-2.0-flash"` to other Gemini variants
 - **Temperature**: Adjust `temperature=0.5` (0.0 = deterministic, 1.0 = creative)
 - **Retrieval Count**: Modify `search_kwargs={"k": 3}` to retrieve more/fewer documents
 
 ### Text Chunking Configuration
 
-In `text_splitter.py`, adjust:
+In `src/text_splitter.py`, adjust:
 - **Chunk Size**: `chunk_size=1000` (characters per chunk)
 - **Overlap**: `chunk_overlap=200` (overlap between chunks)
 
@@ -168,13 +217,14 @@ Try asking questions like:
 - "What are the best practices for incident response?"
 - "Explain the current threat landscape for financial services."
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
 ### Common Issues
 
 1. **Google API Key Error**:
    - Ensure your `.env` file contains a valid `GOOGLE_API_KEY`
    - Verify the API key has access to Gemini models
+   - Make sure your API key is correctly set in `.env`
 
 2. **PDF Loading Issues**:
    - Check that the PDF file exists in the project directory
@@ -187,6 +237,33 @@ Try asking questions like:
 4. **Slow Response Times**:
    - Reduce the number of retrieved documents (`k` parameter)
    - Use a faster Gemini model variant
+
+5. **Module Not Found**: 
+   - Ensure you've activated the virtual environment and installed requirements
+
+6. **Permission Errors**: 
+   - Run PowerShell as Administrator if needed
+
+7. **FAISS Index Error**: 
+   - Delete the `faiss_index_cyber` folder and run `python scripts/setup_database.py` again
+
+### PowerShell Execution Policy
+If you get execution policy errors, run:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+## 📊 What Documents Are Included?
+The chatbot will process these PDF files from the `data/` directory:
+- `data/financial_services_cyber_threats_dataset.pdf`
+- `data/Cyber Threat Sample.pdf`
+- `data/Cyber Threat Sample1.pdf`
+
+## 🛡️ Security Best Practices
+- ✅ Never share your API key
+- ✅ Add `.env` to `.gitignore` if contributing
+- ✅ Use environment variables for sensitive data
+- ✅ Regularly rotate API keys
 
 ## Contributing
 

@@ -216,7 +216,6 @@ secrets.py
 models/
 
 # Data files
-data/
 datasets/
 
 # Note: PDFs are NOT included in .gitignore as requested
