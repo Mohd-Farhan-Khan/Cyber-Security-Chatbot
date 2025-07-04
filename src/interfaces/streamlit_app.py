@@ -67,22 +67,10 @@ def display_system_info():
                 st.session_state.input_text = question
                 st.rerun()
 
-def display_chat_message(role, content, sources=None):
+def display_chat_message(role, content):
     """Display a chat message with proper formatting"""
     with st.chat_message(role):
-        if role == "assistant":
-            st.write(content)
-            if sources and len(sources) > 0:
-                with st.expander(f"📚 Sources ({len(sources)} references)", expanded=False):
-                    for i, doc in enumerate(sources, 1):
-                        st.markdown(f"""
-                        **Source {i}:**
-                        ```
-                        {doc.page_content[:300]}...
-                        ```
-                        """)
-        else:
-            st.write(content)
+        st.write(content)
 
 def run_streamlit_app():
     # Configure page
@@ -156,14 +144,13 @@ def run_streamlit_app():
         if not st.session_state.messages:
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": "👋 Hello! I'm your Cyber Threat Intelligence assistant. I've analyzed cybersecurity documents and I'm ready to answer your questions about threats, vulnerabilities, and security best practices. How can I help you today?",
-                "sources": None
+                "content": "👋 Hello! I'm your Cyber Threat Intelligence assistant. I've analyzed cybersecurity documents and I'm ready to answer your questions about threats, vulnerabilities, and security best practices. How can I help you today?"
             })
         
         # Display chat history
         st.subheader("💬 Conversation")
         for message in st.session_state.messages:
-            display_chat_message(message["role"], message["content"], message.get("sources"))
+            display_chat_message(message["role"], message["content"])
         
         # Chat input
         with st.form("chat_form", clear_on_submit=True):
@@ -190,8 +177,7 @@ def run_streamlit_app():
             # Add user message
             st.session_state.messages.append({
                 "role": "user", 
-                "content": prompt,
-                "sources": None
+                "content": prompt
             })
             display_chat_message("user", prompt)
             
@@ -201,27 +187,14 @@ def run_streamlit_app():
                     try:
                         result = st.session_state.qa_chain.invoke({"query": prompt})
                         response_content = result["result"]
-                        sources = result.get("source_documents", [])
                         
                         # Display response
                         st.write(response_content)
                         
-                        # Display sources if available
-                        if sources:
-                            with st.expander(f"📚 Sources ({len(sources)} references)", expanded=False):
-                                for i, doc in enumerate(sources, 1):
-                                    st.markdown(f"""
-                                    **Source {i}:**
-                                    ```
-                                    {doc.page_content[:300]}...
-                                    ```
-                                    """)
-                        
                         # Add assistant message to history
                         st.session_state.messages.append({
                             "role": "assistant",
-                            "content": response_content,
-                            "sources": sources
+                            "content": response_content
                         })
                         
                     except Exception as e:
@@ -229,8 +202,7 @@ def run_streamlit_app():
                         st.error(error_msg)
                         st.session_state.messages.append({
                             "role": "assistant",
-                            "content": error_msg,
-                            "sources": None
+                            "content": error_msg
                         })
             
             # Rerun to clear the input field
@@ -250,7 +222,6 @@ def run_streamlit_app():
         
         **Features:**
         - Real-time threat analysis
-        - Source attribution
         - Context-aware responses
         - Conversation history
         """)

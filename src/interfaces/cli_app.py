@@ -48,19 +48,9 @@ def print_thinking():
 def format_response(result):
     """Format the AI response nicely"""
     response = result["result"]
-    sources = result.get("source_documents", [])
     
     # Print main response
     print(f"{response}\n")
-    
-    # Print sources if available
-    if sources:
-        print(f"📚 Sources ({len(sources)} references):")
-        print("─" * 60)
-        for i, doc in enumerate(sources, 1):
-            content = doc.page_content[:200].strip()
-            print(f"[{i}] {content}...")
-            print()
 
 def run_chatbot_cli(qa_chain):
     """Run the enhanced CLI chatbot interface"""

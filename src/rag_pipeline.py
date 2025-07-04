@@ -28,6 +28,6 @@ Answer:"""
         llm=llm,
         chain_type="stuff",
         retriever=vectorstore.as_retriever(search_kwargs={"k": 3}),
-        return_source_documents=True,
+        return_source_documents=False,
         chain_type_kwargs={"prompt": prompt}
     )
