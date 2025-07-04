@@ -6,9 +6,7 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 
 - **PDF Document Processing**: Automatically loads and processes cybersecurity threat documents
 - **Intelligent Question Answering**: Uses RAG to provide contextual answers based on the document content
-- **Enhanced User Interfaces**: 
-  - **Streamlit Web Interface**: Modern chat-like UI with conversation history, real-time status, and interactive features
-  - **Professional CLI Interface**: Rich terminal experience with animations, formatted output, and command support
+- **Modern Web Interface**: Streamlit-based chat UI with conversation history, real-time status, and interactive features
 - **Vector Search**: FAISS-powered similarity search for relevant document chunks
 - **Real-time Processing Feedback**: Live progress updates during document processing
 - **Conversation Management**: Persistent chat history, conversation statistics, and session tracking
@@ -19,13 +17,6 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 - 🎨 **Modern Design**: Clean, professional UI with gradient headers and responsive layout
 - 💬 **Chat Interface**: Real-time messaging with conversation history and typing indicators
 - 🔧 **Interactive Controls**: Quick action buttons, sample questions, and conversation management
-
-### CLI Interface
-- 🎯 **Professional Banner**: ASCII art branding with system information
-- ⚡ **Rich Animations**: Thinking indicators and progress feedback
-- 📋 **Structured Output**: Formatted responses with timestamps
-- 🛠️ **Command System**: Built-in help, screen clearing, and session management
-- 📈 **Session Tracking**: Conversation counters and real-time statistics
 
 ## Technology Stack
 
@@ -93,23 +84,11 @@ This will:
 
 ## Usage
 
-### 5. Run the Chatbot
-
-#### Option A: Web Interface (Recommended)
+### Run the Chatbot (Web Interface)
 ```powershell
 streamlit run main.py
 ```
 Then open your browser to: http://localhost:8501
-
-#### Option B: Command Line Interface
-Edit `main.py` and change:
-```python
-MODE = "cli"  # Change from "streamlit" to "cli"
-```
-Then run:
-```powershell
-python main.py
-```
 
 ### Streamlit Web Interface Features
 
@@ -123,33 +102,11 @@ python main.py
    - **Progress tracking**: Visual feedback during document processing
    - **Responsive design**: Clean, modern UI with professional styling
 
-### Enhanced Command Line Interface
-
-1. **Modify the mode in `main.py`**:
-   ```python
-   MODE = "cli"  # Change from "streamlit" to "cli"
-   ```
-
-2. **Run the application**:
-   ```bash
-   python main.py
-   ```
-
-3. **Enhanced CLI Features**:
-   - **Professional banner**: ASCII art welcome screen with system branding
-   - **Interactive help**: Built-in help system with sample questions
-   - **Thinking animation**: Visual feedback while processing queries
-   - **Formatted responses**: Clean, structured output with timestamps
-   - **Session management**: Conversation tracking and timestamps
-   - **Command support**: Help, clear screen, and exit commands
-   - **Error handling**: Graceful error messages and recovery
-   Type your questions and receive answers. Type "exit" to quit.
-
 ## Project Structure
 
 ```
 Cyber-Security-Chatbot/
-├── main.py                      # Entry point - switches between UI modes
+├── main.py                      # Entry point - launches Streamlit UI
 ├── requirements.txt             # Python dependencies
 ├── .env                         # Environment variables
 ├── .gitignore                   # Git ignore file
@@ -164,7 +121,6 @@ Cyber-Security-Chatbot/
 │   └── interfaces/             # User interface modules
 │       ├── __init__.py         # Interface package initialization
 │       ├── streamlit_app.py    # Streamlit web interface
-│       └── cli_app.py          # Command-line interface
 ├── scripts/                     # Utility scripts
 │   ├── __init__.py             # Scripts package initialization
 │   └── setup_database.py       # Database setup and initialization script
@@ -188,9 +144,9 @@ Cyber-Security-Chatbot/
 ### Changing the PDF Source
 
 To use different PDF documents, modify the file paths in:
-- `main.py` (line 14 for CLI mode)
-- `src/interfaces/streamlit_app.py` (for Streamlit interface)
-- `scripts/setup_database.py` (for database setup)
+- `main.py`
+- `src/interfaces/streamlit_app.py`
+- `scripts/setup_database.py`
 
 ### Adjusting Model Parameters
 
@@ -284,7 +240,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - ✅ **Enhanced Chat Interface**: Real-time conversation with message history
 - ✅ **System Status Dashboard**: Live monitoring and document information
-- ✅ **Professional CLI Experience**: Rich terminal interface with animations
 - ✅ **Interactive Quick Actions**: Sample questions and conversation management
 - ✅ **Session Management**: Conversation tracking and statistics
 
