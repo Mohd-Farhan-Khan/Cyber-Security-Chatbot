@@ -10,7 +10,6 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
   - **Streamlit Web Interface**: Modern chat-like UI with conversation history, real-time status, and interactive features
   - **Professional CLI Interface**: Rich terminal experience with animations, formatted output, and command support
 - **Vector Search**: FAISS-powered similarity search for relevant document chunks
-- **Source Citations**: Comprehensive source references with expandable content preview
 - **Real-time Processing Feedback**: Live progress updates during document processing
 - **Conversation Management**: Persistent chat history, conversation statistics, and session tracking
 
@@ -19,14 +18,12 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about cybe
 ### Streamlit Web Interface
 - 🎨 **Modern Design**: Clean, professional UI with gradient headers and responsive layout
 - 💬 **Chat Interface**: Real-time messaging with conversation history and typing indicators
-- � **Chat Interface**: Real-time messaging with conversation history and typing indicators
 - 🔧 **Interactive Controls**: Quick action buttons, sample questions, and conversation management
-- 📚 **Source Explorer**: Expandable source references with full content preview
 
 ### CLI Interface
 - 🎯 **Professional Banner**: ASCII art branding with system information
 - ⚡ **Rich Animations**: Thinking indicators and progress feedback
-- 📋 **Structured Output**: Formatted responses with numbered sources and timestamps
+- 📋 **Structured Output**: Formatted responses with timestamps
 - 🛠️ **Command System**: Built-in help, screen clearing, and session management
 - 📈 **Session Tracking**: Conversation counters and real-time statistics
 
@@ -123,7 +120,6 @@ python main.py
    - **Real-time conversation**: Chat-like interface with message history
    - **System status**: Live monitoring of document processing and AI system status
    - **Quick actions**: Sample questions and conversation clearing
-   - **Source attribution**: Expandable source references for transparency
    - **Progress tracking**: Visual feedback during document processing
    - **Responsive design**: Clean, modern UI with professional styling
 
@@ -143,7 +139,7 @@ python main.py
    - **Professional banner**: ASCII art welcome screen with system branding
    - **Interactive help**: Built-in help system with sample questions
    - **Thinking animation**: Visual feedback while processing queries
-   - **Formatted responses**: Clean, structured output with source attribution
+   - **Formatted responses**: Clean, structured output with timestamps
    - **Session management**: Conversation tracking and timestamps
    - **Command support**: Help, clear screen, and exit commands
    - **Error handling**: Graceful error messages and recovery
@@ -290,7 +286,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - ✅ **System Status Dashboard**: Live monitoring and document information
 - ✅ **Professional CLI Experience**: Rich terminal interface with animations
 - ✅ **Interactive Quick Actions**: Sample questions and conversation management
-- ✅ **Source Attribution System**: Expandable references with content preview
 - ✅ **Session Management**: Conversation tracking and statistics
 
 ## Future Enhancements
