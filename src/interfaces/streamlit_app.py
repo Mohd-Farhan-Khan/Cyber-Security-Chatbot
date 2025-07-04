@@ -1,10 +1,10 @@
 import streamlit as st
 import time
 from datetime import datetime
-from pdf_loader import load_documents
-from text_splitter import split_documents
-from embeddings import create_faiss_vectorstore
-from rag_pipeline import setup_rag_pipeline
+from src.pdf_loader import load_documents
+from src.text_splitter import split_documents
+from src.embeddings import create_faiss_vectorstore
+from src.rag_pipeline import setup_rag_pipeline
 
 def initialize_session_state():
     """Initialize session state variables for the chatbot"""
@@ -14,23 +14,27 @@ def initialize_session_state():
         st.session_state.qa_chain = None
     if "documents_loaded" not in st.session_state:
         st.session_state.documents_loaded = False
+    if "selected_question" not in st.session_state:
+        st.session_state.selected_question = ""
+    if "input_text" not in st.session_state:
+        st.session_state.input_text = ""
 
 def load_and_process_documents():
     """Load and process PDF documents with progress tracking"""
-    file_path = "financial_services_cyber_threats_dataset.pdf"
+    file_path = "data/financial_services_cyber_threats_dataset.pdf"
     
     with st.status("🔄 Initializing Cyber Threat Intelligence System...", expanded=True) as status:
         try:
-            st.write("📄 Loading PDF document...")
+            # st.write("📄 Loading PDF document...")
             documents = load_documents(file_path)
-            
-            st.write("✂️ Splitting document into chunks...")
+
+            # st.write("✂️ Splitting document into chunks...")
             chunks = split_documents(documents)
-            
-            st.write("🧠 Creating vector embeddings...")
+
+            # st.write("🧠 Creating vector embeddings...")
             vectorstore = create_faiss_vectorstore(chunks)
-            
-            st.write("⚡ Setting up RAG pipeline...")
+
+            # st.write("⚡ Setting up RAG pipeline...")
             qa_chain = setup_rag_pipeline(vectorstore)
             
             st.session_state.qa_chain = qa_chain
@@ -60,7 +64,8 @@ def display_system_info():
         
         for question in sample_questions:
             if st.button(question, key=f"sample_{hash(question)}", use_container_width=True):
-                st.session_state.current_question = question
+                st.session_state.input_text = question
+                st.rerun()
 
 def display_chat_message(role, content, sources=None):
     """Display a chat message with proper formatting"""
@@ -111,6 +116,16 @@ def run_streamlit_app():
         width: 100%;
         margin: 0.25rem 0;
     }
+    .stTextInput > div > div > input {
+        border-radius: 20px;
+        border: 2px solid #e0e0e0;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .stTextInput > div > div > input:focus {
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.1);
+    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -151,7 +166,27 @@ def run_streamlit_app():
             display_chat_message(message["role"], message["content"], message.get("sources"))
         
         # Chat input
-        if prompt := st.chat_input("Ask me about cybersecurity threats..."):
+        with st.form("chat_form", clear_on_submit=True):
+            col_input, col_button = st.columns([4, 1])
+            
+            with col_input:
+                user_input = st.text_input(
+                    "Ask me about cybersecurity threats...",
+                    value=st.session_state.input_text,
+                    key="chat_input",
+                    label_visibility="collapsed",
+                    placeholder="Ask me about cybersecurity threats..."
+                )
+            
+            with col_button:
+                submit_clicked = st.form_submit_button("Send", type="primary", use_container_width=True)
+        
+        # Process input when Send button is clicked or Enter is pressed
+        if submit_clicked and user_input.strip():
+            prompt = user_input.strip()
+            # Clear the input field after sending
+            st.session_state.input_text = ""
+            
             # Add user message
             st.session_state.messages.append({
                 "role": "user", 
@@ -164,7 +199,7 @@ def run_streamlit_app():
             with st.chat_message("assistant"):
                 with st.spinner("🤔 Analyzing threat intelligence..."):
                     try:
-                        result = st.session_state.qa_chain({"query": prompt})
+                        result = st.session_state.qa_chain.invoke({"query": prompt})
                         response_content = result["result"]
                         sources = result.get("source_documents", [])
                         
@@ -197,16 +232,16 @@ def run_streamlit_app():
                             "content": error_msg,
                             "sources": None
                         })
-        
-        # Handle sample questions from sidebar
-        if hasattr(st.session_state, 'current_question'):
+            
+            # Rerun to clear the input field
             st.rerun()
-    
+        
     with col2:
         st.subheader("🎯 Quick Actions")
         
         if st.button("🔄 Clear Conversation", use_container_width=True):
             st.session_state.messages = []
+            st.session_state.input_text = ""  # Clear any input text
             st.rerun()
         
         st.subheader("ℹ️ About")

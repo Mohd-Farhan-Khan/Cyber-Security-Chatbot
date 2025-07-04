@@ -1,8 +1,8 @@
 streamlit
-langchain
-openai
-faiss-cpu
-python-dotenv
+langchain>=0.1.0
 langchain-google-genai
 langchain-community
 langchain-text-splitters
+faiss-cpu
+python-dotenv
+pypdf

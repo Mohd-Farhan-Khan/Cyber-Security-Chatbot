@@ -111,7 +111,7 @@ Type 'help' for sample questions or 'exit' to quit.
             print_thinking()
             
             try:
-                result = qa_chain({"query": query})
+                result = qa_chain.invoke({"query": query})
                 conversation_count += 1
                 
                 # Format and display response
